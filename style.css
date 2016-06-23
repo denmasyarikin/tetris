@@ -1,0 +1,39 @@
+@font-face {
+    font-family: digital;
+    src: url(ds_digital/DS-DIGI.TTF);
+}
+body{
+	margin-top: 30px;
+	background: url('bg-tetris-5.png');
+}
+.tetris-body {
+	background: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	padding: 20px;
+}
+#tetris{
+	padding: 0px 14px;
+}
+.side{
+	font-family: digital;
+}
+
+.side .score{
+	margin-top: 20px;
+}
+.side .score p{
+	font-size: 30px;
+}
+.side span {
+	margin:0;
+}
+
+.navigator > div{
+	padding: 30px;
+}
+.navigator #main{
+	border-radius: 100px;
+	width: 120px;
+	height: 120px;
+}

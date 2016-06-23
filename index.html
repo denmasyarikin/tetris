@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tetris | Deden Maualna</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body onLoad="init()">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3 hide-md">&nbsp;</div>
+			<div class="col-xs-6 tetris-body">
+				<div class="row">
+					<div class="col-xs-7" id="tetris"></div>
+					<div class="col-xs-5 side">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default" id="play"><i class="fa fa-play"></i></button>
+							<button type="button" class="btn btn-default" disabled><i class="fa fa-volume-up"></i></button>
+							<button type="button" class="btn btn-default" id="reset"><i class="fa fa-refresh"></i></button>
+						</div>
+						<div class="score" id="score">
+							score
+							<p>0</p>
+						</div>
+						<div class="score" id="line">
+							Line
+							<p>0</p>
+						</div>
+						<div class="score" id="level">
+							Level
+							<p>1</p>
+						</div>
+						<div class="score" id="next">
+							Next
+							<div></div>
+						</div>
+					</div>
+					<div class="col-xs-12 navigator">
+						<div class="row">
+							<div class="col-xs-6 text-center">
+									<table style="margin:auto">
+										<tr>
+											<td>&nbsp;</td>
+											<td><button disabled class="btn btn-sm btn-default"><i class="fa fa-arrow-up"></i></button></td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td><button disabled class="btn btn-sm btn-default"><i class="fa fa-arrow-left"></i></button></td>
+											<td>&nbsp;</td>
+											<td><button disabled class="btn btn-sm btn-default"><i class="fa fa-arrow-right"></i></button></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td><button disabled class="btn btn-sm btn-default"><i class="fa fa-arrow-down"></i></button></td>
+											<td>&nbsp;</td>
+										</tr>
+									</table>
+							</div>
+							<div class="col-xs-6 text-center"><button disabled class="btn btn-lg btn-danger" id="main"><i class="fa fa-circle"></i></button></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3 hide-md">&nbsp;</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+
+var buf='';
+for (i=0;i<top.boardHeight;i++) {
+ for (j=0;j<top.boardWidth;j++) {
+  buf+='<a href="#s" onclick="if(top.ie4)this.blur();top.clk('+i+','+j+');return false;">'
+      +'<img name="s'+i+'_'+j+'" src="bg-0.png" border=0>'
+      + '</a>'; 
+ }
+ buf+='<br>';
+}
+
+$('#tetris').append(buf);
+
+var next='';
+
+for (i=0; i<4; i++) {
+ for (j=0; j<4; j++) {
+  next+='<span>'
+      +'<img name="d'+i+'_'+j+'" src="bg-white.png" border=0>'
+      + '</span>'; 
+ }
+ next+='<br>';
+}
+
+$('#next div').append(next);
+
+top.boardLoaded=1;
+
+$(document).on('click', '#play', function(){
+	top.start();
+	$(this).attr('id', 'pause');
+	$(this).html('<i class="fa fa-pause"></i>');
+});
+
+$(document).on('click', '#pause', function(){
+	top.pause();
+	$(this).attr('id', 'play');
+	$(this).html('<i class="fa fa-play"></i>');
+});
+
+$(document).on('click', '#reset', function(){
+	$('#pause').attr('id', 'play').html('<i class="fa fa-play"></i>');
+	top.reset();
+	top.focus();
+});
+
+$('input[name=Lines]').on('change', function(){
+	console.log('aa');
+	$('#line p').text($(this).val());
+});
+
+$('.fa-arrow-up').click(function(){
+	top.rotate();
+});
+
+$('.fa-arrow-left').click(function(){
+	top.moveleft();
+});
+
+$('.fa-arrow-right').click(function(){
+	top.moveright();
+	
+});
+
+$('.fa-arrow-down').click(function(){
+	top.movedown();
+});
+
+</script>
+</html>
