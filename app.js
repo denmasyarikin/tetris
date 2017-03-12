@@ -15,11 +15,11 @@ ns4 = ((navigator.appName=="Netscape" || navigator.appName=="Opera") && parseInt
 
 nSquares=4;
 nTypes=7;
-boardHeight=16;
+boardHeight=20;
 boardWidth =10;
 Level=1;
-speed0=700;
-speedK=60;
+speed0=1000;
+speedK=80;
 speed=speed0-speedK*Level;
 nLines=0;
 
@@ -38,15 +38,15 @@ timerID=null;
 // IMAGES
 
 if (document.images) {
- ImgWhite=new Image(); ImgWhite.src='bg-white.png';
- Img0=new Image(); Img0.src='bg-0.png';
- Img1=new Image(); Img1.src='bg-1.png';
- Img2=new Image(); Img2.src='bg-2.png';
- Img3=new Image(); Img3.src='bg-3.png';
- Img4=new Image(); Img4.src='bg-4.png';
- Img5=new Image(); Img5.src='bg-5.png';
- Img6=new Image(); Img6.src='bg-6.png';
- Img7=new Image(); Img7.src='bg-7.png';
+ ImgWhite=new Image(); ImgWhite.src='images/bg-transparent.png';
+ Img0=new Image(); Img0.src='images/basic/bg-0.png';
+ Img1=new Image(); Img1.src='images/basic/bg-1.png';
+ Img2=new Image(); Img2.src='images/basic/bg-1.png';
+ Img3=new Image(); Img3.src='images/basic/bg-1.png';
+ Img4=new Image(); Img4.src='images/basic/bg-1.png';
+ Img5=new Image(); Img5.src='images/basic/bg-1.png';
+ Img6=new Image(); Img6.src='images/basic/bg-1.png';
+ Img7=new Image(); Img7.src='images/basic/bg-1.png';
 }
 
 
@@ -91,11 +91,50 @@ function resetGame() {
  $('.side #level p').text(1);
  serialN=0;
  skyline=boardHeight-1;
+ setNextPiece();
+ splashScreen();
+}
+
+function splashScreen() {
+  fillScreen(function(){
+    clearScreen();
+  });
+}
+
+function fillScreen(callback) {
+    var i = 0;
+    var interval = setInterval(function(){
+        for (var j=0; j<boardWidth; j++) {
+           if (boardLoaded) eval('self.document.s'+i+'_'+j+'.src="'+Img1.src+'"');
+
+           if (i == (boardHeight-1) && j == (boardWidth-1)) {
+                clearInterval(interval);
+                if (typeof callback === 'function') callback();
+            }
+        }
+
+        i++;
+    }, 50);
+}
+
+function clearScreen() {
+    var i = boardHeight-1;
+    var interval = setInterval(function(){
+        for (var j=0; j<boardWidth; j++) {
+           if (boardLoaded) eval('self.document.s'+i+'_'+j+'.src="'+Img0.src+'"');
+
+           if (i == (boardHeight) && j == (boardWidth)) {
+                clearInterval(interval);
+            }
+        }
+
+        i--;
+    }, 50);
 }
 
 function reset() {
-	clearTimeout(timerID);
-	resetGame();
+  clearTimeout(timerID);
+  resetGame();
 }
 
 function start() {
@@ -196,7 +235,7 @@ function setScore(nLines){
 }
 
 function getLevel() {
-	Level=1;
+    Level=1;
  // Level=parseInt(self.document.form1.s1.options[self.document.form1.s1.selectedIndex].value);
  speed=speed0-speedK*Level;
  top.focus();
@@ -298,24 +337,24 @@ function fall() {
 }
 
 function setNextPiece(){
-	nextPiece = 1+Math.floor(nTypes*Math.random());
-	curX=2;
-	curY=0;
-	for (var k=0;k<nSquares;k++) {
-	  dx2[k]=dxBank[nextPiece][k]; 
-	  dy2[k]=dyBank[nextPiece][k];
-	}
+    nextPiece = 1+Math.floor(nTypes*Math.random());
+    curX=2;
+    curY=0;
+    for (var k=0;k<nSquares;k++) {
+      dx2[k]=dxBank[nextPiece][k]; 
+      dy2[k]=dyBank[nextPiece][k];
+    }
 
-	drawNextPiece();
+    drawNextPiece();
 }
 
 function getPiece(N) {
-	if (getPiece.arguments.length===0) {
-		curPiece = nextPiece;
-		setNextPiece();
-	} else {
-		curPiece = N;
-	}
+    if (getPiece.arguments.length===0) {
+        curPiece = nextPiece;
+        setNextPiece();
+    } else {
+        curPiece = N;
+    }
 
  curX=5;
  curY=0;
@@ -485,7 +524,6 @@ function init() {
  document.onkeydown = keyDown;
  document.onkeyup = keyUp;
  // if (ns4) document.captureEvents(Event.KEYDOWN | Event.KEYUP);
- setNextPiece();
 
  resetGame();
  top.focus();

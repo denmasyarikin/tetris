@@ -3,37 +3,37 @@
     src: url(ds_digital/DS-DIGI.TTF);
 }
 body{
-	margin-top: 30px;
-	background: url('bg-tetris-5.png');
+	margin-top: 10px;
 }
 .tetris-body {
 	background: #ffffff;
 	border: 1px solid #ddd;
 	border-radius: 15px;
-	padding: 20px;
+	padding: 20px 35px;
+	background: url(images/bg.jpg) no-repeat;
+	background-size: cover;
 }
 #tetris{
-	padding: 0px 14px;
+	padding: 2% 0;
+	border: 1px solid #ddd;
+	background: #ffffff;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: -1px -3px 5px #ddd inset;
 }
 .side{
 	font-family: digital;
 }
 
-.side .score{
-	margin-top: 20px;
+#level, #speed,
+.side .btn-group {
+	margin-bottom: 20px;
 }
 .side .score p{
 	font-size: 30px;
-}
-.side span {
-	margin:0;
-}
-
-.navigator > div{
-	padding: 30px;
-}
-.navigator #main{
-	border-radius: 100px;
-	width: 120px;
-	height: 120px;
+	background: #fff;
+	padding: 0 7px;
+	border:1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: -3px -3px 3px #ddd inset;
 }
